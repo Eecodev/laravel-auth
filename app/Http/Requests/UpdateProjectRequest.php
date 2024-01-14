@@ -11,7 +11,7 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,19 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'image' => ['nullable', 'url'],
+            'title' => ['required', 'min:3', 'max:200', Rule::unique('projects')->ignore($this->project)],
+            'description' => ['nullable'],
+            'url' => ['nullable']
         ];
+    }
+
+    public function messages()
+    {
+        'image.url' => 'L\'immagine deve essere di tipo url',
+        'title.required' => 'Il titolo è obbligatorio',
+        'title.min' => 'Il titolo deve avere almeno :min caratteri',
+        'title.max' => 'Il titolo deve avere massimo :max caratteri',
+        'title.unique' => 'Questo titolo esiste già',
     }
 }
