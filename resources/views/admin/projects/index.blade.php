@@ -2,8 +2,6 @@
 @section('content')
     <section class="container">
         <h1>Project List</h1>
-        @foreach ($projects as $project)
-            <p><a href="{{route('admin.projects.show', $project->id)}}">{{$project->title}}</a></p>
             <table class="table">
                 <thead>
                   <tr>
@@ -36,6 +34,5 @@
                     @endforeach
                 </tbody>
               </table>
-        @endforeach
     </section>
 @endsection
