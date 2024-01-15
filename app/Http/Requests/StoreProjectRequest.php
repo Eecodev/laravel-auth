@@ -31,10 +31,13 @@ class StoreProjectRequest extends FormRequest
 
     public function messages()
     {
-        'image.url' => 'L\'immagine deve essere di tipo url',
-        'title.required' => 'Il titolo è obbligatorio',
-        'title.min' => 'Il titolo deve avere almeno :min caratteri',
-        'title.max' => 'Il titolo deve avere massimo :max caratteri',
-        'title.unique' => 'Questo titolo esiste già',
+        return [
+            'image.url' => 'L\'immagine deve essere di tipo url',
+            'title.required' => 'Il titolo è obbligatorio',
+            'title.min' => 'Il titolo deve avere almeno :min caratteri',
+            'title.max' => 'Il titolo deve avere massimo :max caratteri',
+            'title.unique' => 'Questo titolo esiste già',
+        ];
+
     }
 }

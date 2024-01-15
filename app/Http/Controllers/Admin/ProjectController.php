@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
+use Illuminate\Support\Str;
 
 class ProjectController extends Controller
 {
@@ -31,7 +32,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+        $formData = $request->validated();
+        $slug = Str::slug($formData['title'], '-');
+        $formData['slug'] = $slug;
+        // $userId = auth()->id();
+        $project = Project::create($formData);
+        return redirect()->route('admin.projects.show', $project->id);
     }
 
     /**
@@ -47,7 +53,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -55,7 +61,14 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $formData = $request->validated();
+        //create slug
+        $slug = Str::slug($formData['title'], '-');
+        //add slug to form data
+        $formData['slug'] = $slug;
+        // $userId = auth()->id();
+        $project->update($formData);
+        return redirect()->route('admin.projects.show', $project->id);
     }
 
     /**
@@ -63,6 +76,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project-delete();
+        return to_route('admin.projects.index')->with('message', "$project->title eliminato con successo");
     }
 }

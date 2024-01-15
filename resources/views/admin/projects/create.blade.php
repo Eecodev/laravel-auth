@@ -14,11 +14,11 @@
     </div>
 
     <div class="mb-3">
-        <label for="body">Body</label>
-        <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" cols="30" rows="10">
-        {{ old('body') }}
+        <label for="description">Body</label>
+        <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" cols="30" rows="10">
+        {{ old('description') }}
         </textarea>
-        @error('body')
+        @error('description')
             <div class="invalid-feedback">{{ $message }}</div>
         @enderror
     </div>
