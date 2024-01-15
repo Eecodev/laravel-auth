@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Project;
 use Illuminate\Support\Str;
 
@@ -36,6 +37,12 @@ class ProjectController extends Controller
         $slug = Str::slug($formData['title'], '-');
         $formData['slug'] = $slug;
         // $userId = auth()->id();
+
+        if($request->hasFile('image')){
+            $img_path = Storage::put('images', $request->image);
+            $formData['image'] = $img_path;
+        }
+        //dd($img_path);
         $project = Project::create($formData);
         return redirect()->route('admin.projects.show', $project->id);
     }
@@ -67,6 +74,10 @@ class ProjectController extends Controller
         //add slug to form data
         $formData['slug'] = $slug;
         // $userId = auth()->id();
+
+        // if($request->hasFile('image')){
+
+        // }
         $project->update($formData);
         return redirect()->route('admin.projects.show', $project->id);
     }
@@ -76,6 +87,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        // if ($project->image){
+        //     Storage::delete($project->image);
+        // }
+
         $project-delete();
         return to_route('admin.projects.index')->with('message', "$project->title eliminato con successo");
     }
