@@ -22,10 +22,10 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'image' => ['nullable', 'url'],
+            'image' => ['nullable', 'image'],
             'title' => ['required', 'min:3', 'max:200', 'unique:projects'],
             'description' => ['nullable'],
-            'url' => ['nullable']
+            'url' => ['required']
         ];
     }
 
@@ -37,6 +37,7 @@ class StoreProjectRequest extends FormRequest
             'title.min' => 'Il titolo deve avere almeno :min caratteri',
             'title.max' => 'Il titolo deve avere massimo :max caratteri',
             'title.unique' => 'Questo titolo esiste già',
+            'url' => 'L\'url è obbligatorio'
         ];
 
     }
